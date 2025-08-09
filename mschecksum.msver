@@ -1,8 +1,9 @@
 # mschecksum Version Tree
-# Format: version|version_name|download_url|checksum
+# Format: version|version_name|download_url|checksum|install_script|uninstall_script
 #         config|key|default_value|description|category|scripts
 
 # Version information
-version|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum.sh|dev
+# install_script and uninstall_script are optional (use empty string if not needed)
+version|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum.sh|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum-install.sh|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum-uninstall.sh
 
 # Configuration keys (none for mschecksum - it's a simple utility)
