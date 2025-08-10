@@ -1,0 +1,46 @@
+.TH MSCHECKSUM 1 "August 2025" "mschecksum 0.1.0" "User Commands"
+.SH NAME
+mschecksum \- SHA256 checksum calculator
+.SH SYNOPSIS
+.B mschecksum
+[\fIOPTION\fR]...
+[\fIFILE\fR]...
+.SH DESCRIPTION
+mschecksum calculates and verifies SHA256 checksums for files. It provides a simple interface for file integrity verification.
+.SH OPTIONS
+.TP
+.B \-c, \-\-check
+Check checksums from file
+.TP
+.B \-v, \-\-verify \fIchecksum\fR
+Verify file against specific checksum
+.TP
+.B \-r, \-\-recursive
+Process directories recursively
+.TP
+.B \-o, \-\-output \fIfile\fR
+Save checksums to file
+.TP
+.B \-h, \-\-help
+Show help message
+.TP
+.B \-\-version
+Show version information
+.SH EXAMPLES
+.TP
+.B mschecksum file.txt
+Calculate checksum for file.txt
+.TP
+.B mschecksum \-r directory/
+Calculate checksums for all files in directory
+.TP
+.B mschecksum \-c checksums.txt
+Verify checksums from file
+.TP
+.B mschecksum \-v abc123... file.txt
+Verify specific file checksum
+.SH AUTHOR
+Magic Scripts development team
+.SH SEE ALSO
+.BR ms (1),
+.BR sha256sum (1)

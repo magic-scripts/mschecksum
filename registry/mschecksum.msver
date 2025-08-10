@@ -4,6 +4,6 @@
 
 # Version information
 # install_script and uninstall_script are optional (use empty string if not needed)
-version|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum.sh|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum-install.sh|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/mschecksum-uninstall.sh
+version|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/scripts/mschecksum.sh|dev|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/installer/install.sh|https://raw.githubusercontent.com/magic-scripts/mschecksum/develop/installer/uninstall.sh
 
 # Configuration keys (none for mschecksum - it's a simple utility)
