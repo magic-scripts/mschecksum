@@ -1,22 +1,37 @@
-# mschecksum - Magic Scripts Checksum Calculator
+# mschecksum - Checksum Calculator
 
-Simple SHA256 checksum calculator designed for Magic Scripts ecosystem.
+Simple SHA256 checksum calculator designed for Magic Scripts ecosystem with standardized 8-character format.
 
-## Features
+## ✨ Features
 
 - 🔐 **SHA256 Checksums**: Industry-standard cryptographic hashing
 - 📏 **Magic Scripts Format**: First 8 characters of hex digest (standard format)
 - ⚡ **Cross-Platform**: Works on Linux, macOS, and other Unix systems
 - 🛠️ **Multiple Tools**: Auto-detects available tools (sha256sum, shasum, openssl)
-- 📄 **Clean Output**: Simple, parseable output format
 
-## Installation
+## 🚀 Installation
+
+### Via Magic Scripts (Recommended)
 
 ```bash
+# Install Magic Scripts system
+curl -fsSL https://raw.githubusercontent.com/magic-scripts/ms/main/setup.sh | sh
+
+# Install mschecksum
 ms install mschecksum
 ```
 
-## Usage
+### Manual Installation
+
+```bash
+# Download and make executable
+curl -fsSL https://raw.githubusercontent.com/magic-scripts/mschecksum/main/scripts/mschecksum.sh -o ~/.local/bin/mschecksum
+chmod +x ~/.local/bin/mschecksum
+```
+
+## 📖 Usage
+
+### Quick Start
 
 ```bash
 # Calculate checksum for a file
@@ -25,45 +40,94 @@ mschecksum ./scripts/my-script.sh
 # Output:
 # File: ./scripts/my-script.sh
 # SHA256 (first 8 chars): a1b2c3d4
+```
+
+### Examples
+
+```bash
+# Basic file checksum
+mschecksum important-file.txt
 
 # Check version
 mschecksum --version
 
 # Show help
 mschecksum --help
+
+# Use in script automation
+for file in scripts/*.sh; do
+    mschecksum "$file"
+done
 ```
 
-## Use Cases
+### Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-h, --help` | Show help message | - |
+| `-v, --version` | Show version information | - |
+| `file_path` | Path to file for checksum calculation | Required |
+
+## ⚙️ Configuration
+
+mschecksum uses the Magic Scripts configuration system:
+
+```bash
+# View configuration
+ms config list | grep mschecksum
+
+# Set preferred checksum tool (optional)
+ms config set CHECKSUM_TOOL sha256sum
+
+# Enable verbose output
+ms config set CHECKSUM_VERBOSE true
+```
+
+### Available Configuration Keys
+
+| Key | Description | Default | Category |
+|-----|-------------|---------|----------|
+| `CHECKSUM_TOOL` | Preferred tool (sha256sum, shasum, openssl) | `auto-detect` | tool |
+| `CHECKSUM_VERBOSE` | Show detailed output | `false` | output |
+| `CHECKSUM_FORMAT` | Output format preference | `magic-scripts` | format |
+
+## 📚 Examples & Use Cases
 
 ### Magic Scripts Development
+
 Perfect for calculating checksums when creating or updating `.msver` files:
 
 ```bash
 # Calculate checksum for your script
 mschecksum ./my-script.sh
+# File: ./my-script.sh
+# SHA256 (first 8 chars): a1b2c3d4
 
 # Add to .msver file:
-version|1.0.0|https://example.com/my-script.sh|a1b2c3d4
+# version|1.0.0|https://example.com/my-script.sh|a1b2c3d4
 ```
 
 ### File Integrity Verification
+
 Quickly verify file integrity during development:
 
 ```bash
-# Check if file changed
-mschecksum important-file.txt
+# Initial checksum
+mschecksum important-config.json
 # SHA256 (first 8 chars): d5e6f7g8
 
-# Later...
-mschecksum important-file.txt  
-# SHA256 (first 8 chars): d5e6f7g8  # Same = no changes
+# After modifications, verify changes
+mschecksum important-config.json
+# SHA256 (first 8 chars): f9a0b1c2  # Changed = file modified
 ```
 
 ### Batch Processing
+
 Use in scripts for automated checksum calculation:
 
 ```bash
-#!/bin/sh
+#!/bin/bash
+echo "Calculating checksums for all scripts..."
 for file in scripts/*.sh; do
     echo "Processing $file..."
     mschecksum "$file"
@@ -71,62 +135,72 @@ for file in scripts/*.sh; do
 done
 ```
 
-## Supported Tools
+## 🔧 Integration
 
-mschecksum automatically detects and uses available tools:
+### With Other Tools
 
-1. **sha256sum** - Linux standard (preferred)
-2. **shasum** - macOS standard with `-a 256` 
-3. **openssl** - Fallback option with `dgst -sha256`
+mschecksum works well with:
+- **Magic Scripts Registry**: Standard checksum format for .msver files
+- **Version Control**: Track file changes with checksum comparison
+- **CI/CD Pipelines**: Automated integrity verification
 
-## Output Format
-
-```
-File: <file_path>
-SHA256 (first 8 chars): <checksum>
-```
-
-The 8-character format is the Magic Scripts standard for compact checksums while maintaining reasonable collision resistance.
-
-## Error Handling
-
-- ❌ **File not found**: Clear error message
-- ❌ **No checksum tool**: Lists required tools
-- ❌ **Calculation failed**: Reports failure with context
-- ❌ **Invalid arguments**: Shows usage help
-
-## Examples
+### Workflow Examples
 
 ```bash
-# Basic usage
-$ mschecksum hello.sh
-File: hello.sh
-SHA256 (first 8 chars): 2c26b46b
-
-# File not found
-$ mschecksum missing.sh
-Error: File 'missing.sh' not found
-
-# Multiple arguments (error)
-$ mschecksum file1.sh file2.sh
-Error: Too many arguments
-Use mschecksum --help for usage information
+# Script deployment verification
+mschecksum deploy-script.sh > checksum.txt
+scp deploy-script.sh server:/opt/scripts/
+ssh server "cd /opt/scripts && mschecksum deploy-script.sh"
+# Compare checksums to verify transfer integrity
 ```
 
-## Why 8 Characters?
+## 🛠️ Development
 
-The 8-character checksum provides:
-- **Reasonable collision resistance**: ~4 billion possibilities
-- **Compact representation**: Fits well in registry files
-- **Human readable**: Easy to compare and verify
-- **Industry practice**: Common in package managers and version control
+### Building from Source
 
-For critical security applications, use the full SHA256 hash from the underlying tools.
+```bash
+git clone https://github.com/magic-scripts/mschecksum.git
+cd mschecksum
+# No build required - it's a shell script
+```
 
-## Version
+### Testing
 
-Dev version - latest features from develop branch.
+```bash
+# Test with sample files
+echo "hello world" > test.txt
+mschecksum test.txt
+# Expected: SHA256 (first 8 chars): 2c26b46b
 
-## License
+# Test error handling
+mschecksum nonexistent.txt
+# Expected: Error: File 'nonexistent.txt' not found
+```
 
-MIT License
+### Supported Tools
+
+- **sha256sum**: Linux standard (preferred)
+- **shasum**: macOS standard with `-a 256`
+- **openssl**: Fallback option with `dgst -sha256`
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 🔗 Related Projects
+
+- **[magic-scripts/ms](https://github.com/magic-scripts/ms)** - Magic Scripts core system
+- **[magic-scripts/projinit](https://github.com/magic-scripts/projinit)** - Project initializer
+- **[magic-scripts/dockergen](https://github.com/magic-scripts/dockergen)** - Dockerfile generator
+
+---
+
+Part of the [Magic Scripts](https://github.com/magic-scripts/ms) ecosystem.
