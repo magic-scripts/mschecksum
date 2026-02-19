@@ -1,0 +1,55 @@
+.TH MSCHECKSUM 1 "February 2026" "mschecksum 0.1.0" "User Commands"
+.SH NAME
+mschecksum \- SHA256 checksum calculator for Magic Scripts packages
+.SH SYNOPSIS
+.B mschecksum
+\fIFILE\fR
+.br
+.B mschecksum
+[\fB\-h\fR|\fB\-\-help\fR|\fB\-v\fR|\fB\-\-version\fR]
+.SH DESCRIPTION
+.B mschecksum
+calculates the SHA256 hash of a file and outputs the first 8 hexadecimal characters.
+This is the standard checksum format used in Magic Scripts
+.I .msver
+registry files.
+.PP
+It auto-detects available hashing tools in this order:
+.BR sha256sum (1)
+(preferred, Linux),
+.BR shasum (1)
+(macOS),
+.BR openssl (1)
+(fallback).
+.SH OPTIONS
+.TP
+.B \fIFILE\fR
+Path to the file whose checksum should be calculated.
+.TP
+.B \-h, \-\-help
+Show help message and exit.
+.TP
+.B \-v, \-\-version
+Show version information and exit.
+.SH OUTPUT FORMAT
+.nf
+File: <file_path>
+SHA256 (first 8 chars): <checksum>
+.fi
+.SH EXAMPLES
+.TP
+Calculate checksum of a script:
+.B mschecksum ./scripts/my-script.sh
+.TP
+Use in a release workflow:
+.nf
+mschecksum scripts/portcheck.sh
+# SHA256 (first 8 chars): b70692dd
+# Then add to .msver: version|1.0.0|<url>|b70692dd|...
+.fi
+.SH SEE ALSO
+.BR sha256sum (1),
+.BR shasum (1),
+.BR ms (1)
+.SH AUTHOR
+nulLeeKH <nulleekh@gmail.com>
