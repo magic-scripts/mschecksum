@@ -1,0 +1,20 @@
+# mschecksum.mspack - Package Manifest
+# Format: type|field1|field2|...
+
+# Package metadata
+name|mschecksum
+description|SHA256 checksum calculator for Magic Scripts packages
+author|nulLeeKH <nulleekh@gmail.com>
+license|MIT
+license_url|https://github.com/magic-scripts/mschecksum/blob/main/LICENSE
+repo_url|https://github.com/magic-scripts/mschecksum
+issues_url|https://github.com/magic-scripts/mschecksum/issues
+category|utility
+stability|beta
+min_ms_version|0.0.1
+
+# Version file link
+msver_url|https://raw.githubusercontent.com/magic-scripts/mschecksum/main/registry/mschecksum.msver
+
+# Configuration keys
+config|MSCHECKSUM_OPTION|default|Default option value|settings|mschecksum
