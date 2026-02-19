@@ -14,7 +14,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 show_help() {
-    printf "%b\n" "${CYAN}${SCRIPT_NAME} v${VERSION}${NC}"
+    printf "%b\n" "${CYAN}${SCRIPT_NAME} v${MS_INSTALLED_VERSION:-$VERSION}${NC}"
     printf "SHA256 checksum calculator for Magic Scripts packages\n\n"
     printf "Usage:\n"
     printf "  %b\n" "${CYAN}${SCRIPT_NAME} <file_path>${NC}"
@@ -32,7 +32,7 @@ show_help() {
 }
 
 show_version() {
-    printf "%s v%s\n" "$SCRIPT_NAME" "$VERSION"
+    printf "%s v%s\n" "$SCRIPT_NAME" "${MS_INSTALLED_VERSION:-$VERSION}"
 }
 
 # Calculate SHA256 checksum of a file (first 8 characters)
